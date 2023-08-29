@@ -1,12 +1,7 @@
 package net.personalprojects.contactbook.domain.contactfilters;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
-
 public class ContactFilters {
-    @Valid
     private ContactNameFilter _contactName;
-    @Valid
     private ContactPhoneNumberFilter _contactPhoneNumber;
     public ContactFilters(final String contactName, final String contactPhoneNumber) {
         this._contactName = new ContactNameFilter(contactName);

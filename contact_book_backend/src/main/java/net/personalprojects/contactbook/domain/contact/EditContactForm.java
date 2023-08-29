@@ -1,22 +1,23 @@
 package net.personalprojects.contactbook.domain.contact;
 
+import net.personalprojects.contactbook.domain.contactphone.ContactPhoneList;
+import net.personalprojects.contactbook.domain.contactphone.ContactPhoneVO;
 import net.personalprojects.contactbook.dto.ContactDTO;
-import net.personalprojects.contactbook.model.ContactPhone;
 
 import java.util.Set;
 
 public class EditContactForm extends ContactForm {
     private ContactId _id;
-    private ContactPhones _phones;
+    private ContactPhoneList _phones;
     public EditContactForm(ContactDTO contactDTO) {
         super(contactDTO);
         this._id = new ContactId(contactDTO.getId());
-        this._phones = new ContactPhones(contactDTO.getPhonesToEdit());
+        this._phones = new ContactPhoneList(contactDTO.getPhonesToEdit());
     }
     public long id() {
         return this._id.value();
     }
-    public Set<ContactPhone> phones() {
+    public Set<ContactPhoneVO> phones() {
         return this._phones.value();
     }
 }

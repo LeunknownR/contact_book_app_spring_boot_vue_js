@@ -1,9 +1,7 @@
 package net.personalprojects.contactbook.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-
 
 @Entity
 @Table(name = "contact_phone")
@@ -16,7 +14,6 @@ public class ContactPhone {
     @Column(name = "number")
     @Getter
     private String number;
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="contact_id")
     private Contact contact;

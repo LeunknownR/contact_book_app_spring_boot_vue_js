@@ -1,16 +1,18 @@
 package net.personalprojects.contactbook.domain.contact;
 
+import net.personalprojects.contactbook.domain.contactphone.ContactPhoneNumber;
+import net.personalprojects.contactbook.domain.contactphone.ContactPhoneNumberList;
 import net.personalprojects.contactbook.dto.ContactDTO;
 
-import java.util.Set;
+import java.util.Arrays;
 
 public class AddContactForm extends ContactForm {
-    private ContactPhoneNumbers _phones;
+    private ContactPhoneNumberList _phones;
     public AddContactForm(ContactDTO contactDTO) {
         super(contactDTO);
-        this._phones = new ContactPhoneNumbers(contactDTO.getPhonesToAdd());
+        this._phones = new ContactPhoneNumberList(contactDTO.getPhonesToAdd());
     }
     public String[] phones() {
-        return this._phones.value();
+        return Arrays.stream(this._phones.value()).map(ContactPhoneNumber::value).toArray(String[]::new);
     }
 }
