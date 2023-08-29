@@ -1,7 +1,0 @@
-# Libreta de Contactos (Contact Book)
-
-[User]
-name
-surname
-username
-password

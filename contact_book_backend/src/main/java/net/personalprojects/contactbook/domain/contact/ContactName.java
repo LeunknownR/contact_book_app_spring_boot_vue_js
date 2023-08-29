@@ -1,15 +1,16 @@
 package net.personalprojects.contactbook.domain.contact;
 
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-import lombok.Getter;
+import net.personalprojects.contactbook.exception.InvalidContactException;
 
 public class ContactName {
-    @NotNull
-    @Size(min = 1, max = 50, message = "Invalid contact name")
-    private String _value;
-    public ContactName(final String name) {
-        this._value = name;
+    private static final String ERROR_MESSAGE = "Invalid contact name";
+    private static final int MIN_SIZE = 1;
+    private static final int MAX_SIZE = 50;
+    private final String _value;
+    public ContactName(final String value) {
+        if (value == null || value.length() < MIN_SIZE || value.length() > MAX_SIZE)
+            throw new InvalidContactException(ERROR_MESSAGE);
+        this._value = value;
     }
     public String value() {
         return this._value;
