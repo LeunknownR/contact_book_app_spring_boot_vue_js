@@ -5,5 +5,5 @@
 	/>
 </template>
 <script setup lang="ts">
-	import noContentImg from "@/assets/noContent.svg";
+	import noContentImg from "@/assets/no_content.svg";
 </script>

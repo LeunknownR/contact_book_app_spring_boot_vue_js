@@ -1,5 +1,11 @@
 <template>
-	<h2>{{ title }}</h2>
+	<header class="flex gap-2 items-center">
+		<div
+			data-role="bullet"
+			class="bg-indigo-500 w-6 h-6 rounded"
+		></div>
+		<h2 class="text-slate-50 text-lg font-bold">{{ title }}</h2>
+	</header>
 </template>
 <script setup lang="ts">
 	const { title } = defineProps<{
