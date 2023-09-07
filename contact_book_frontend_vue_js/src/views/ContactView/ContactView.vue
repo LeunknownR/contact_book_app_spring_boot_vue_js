@@ -1,8 +1,14 @@
 <template>
-	<Title title="Contactos" />
-	<aside>
-		<ContactGroup :contacts="state.contacts" />
-	</aside>
+	<section class="flex flex-col gap-5">
+		<Title title="Contactos" />
+		<aside class="flex flex-col max-h-96 overflow-y-auto">
+			<ContactGroup
+				:contacts="state.contacts"
+				:contact-selected="state.contactSelected"
+				@selectContact="selectContact"
+			/>
+		</aside>
+	</section>
 </template>
 <script setup lang="ts">
 	import ContactGroup from "@/components/ContactGroup.vue";
@@ -14,15 +20,19 @@
 
 	const state = reactive<{
 		contacts: Contact[];
+		contactSelected: Contact | null;
 	}>({
 		contacts: [],
+		contactSelected: null,
 	});
+	const selectContact = (contact: Contact): void => {
+		state.contactSelected = contact;
+	};
 	onBeforeMount(() => {
 		(async () => {
 			const store = useContactStore();
 			await store.dispatch(ActionTypes.FetchContacts);
 			state.contacts = store.getters.getContacts;
-			// state.contacts = data;
 		})();
 	});
 </script>
