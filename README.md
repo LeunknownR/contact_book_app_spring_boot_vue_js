@@ -5,12 +5,13 @@ Aplicación de libreta de contactos.
 ## Tecnologías
 
 -   _Backend_ con **Java Spring Boot** y el ORM **Hibernate**.
--   _Frontend_ con **Vue JS 3**.
+-   _Frontend_ con **Vue JS 3** y **TailwindCSS**.
 -   _Base de datos_ con **MySQL**.
 
 ## Herramientas extras
 
 -   **IntelliJ IDEA** como IDE.
+-   **VSCode** como editor de código para desarrollar el frontend con Vue.
 -   **Postman** para el testing y documentación de los servicios backend.
 -   **Asana** para la gestión de las tareas del proyecto.
 
