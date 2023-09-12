@@ -2,6 +2,8 @@ USE mysql;
 
 DROP DATABASE IF EXISTS db_contact_book;
 CREATE DATABASE db_contact_book;
+
+USE db_contact_book;
 -- Category
 CREATE TABLE contact_category(
     id CHAR(3) NOT NULL,
@@ -12,8 +14,8 @@ CREATE TABLE contact_category(
 -- Contact
 CREATE TABLE contact(
     id INT AUTO_INCREMENT NOT NULL,
-    name VARCHAR(50) NOT NULL,
-    email VARCHAR(30),
+    name VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(30) UNIQUE,
     is_favorite BIT,
     contact_category_id CHAR(3),
     PRIMARY KEY (id),
@@ -23,7 +25,7 @@ CREATE TABLE contact(
 -- Phone
 CREATE TABLE contact_phone(
     id INT AUTO_INCREMENT NOT NULL,
-    number CHAR(9) NOT NULL,
+    number CHAR(9) NOT NULL UNIQUE,
     contact_id INT NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (contact_id) REFERENCES contact(id)

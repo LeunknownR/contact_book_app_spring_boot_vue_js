@@ -1,18 +1,22 @@
+import type { ContactCategory } from "@/types/domain";
 import api from "./config/api";
-import type { ContactCategory, ResponseAPI } from "./types";
+import type { ResponseApi } from "./utils/types";
 
 class ContactCategoryService {
-    private readonly scheme: string;
-    constructor(scheme: string) {
-        this.scheme = scheme;
-    }
-    private endpoint(path?: string) {
-        return `${this.scheme}${path || ""}`;
-    }
-    async getContactCategories(): Promise<ResponseAPI<ContactCategory[]>> {
-        return await api.get(this.endpoint());
-    }
+	private readonly scheme: string;
+	constructor(scheme: string) {
+		this.scheme = scheme;
+	}
+	private endpoint(path?: string) {
+		return `${this.scheme}${path || ""}`;
+	}
+	async getContactCategories(): Promise<ResponseApi<ContactCategory[]>> {
+		const response = await api.get(this.endpoint());
+		return response.data;
+	}
 }
 
-const contactCategoryService = new ContactCategoryService("/contact-categories");
+const contactCategoryService = new ContactCategoryService(
+	"/contact-categories"
+);
 export default contactCategoryService;

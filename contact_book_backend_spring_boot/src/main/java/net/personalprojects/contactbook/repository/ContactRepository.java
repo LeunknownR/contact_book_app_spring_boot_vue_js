@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface ContactRepository {
     List<Contact> getAllContacts(final String contactName, final String contactPhoneNumber);
+    Contact findContactById(final long contactId);
     ResponseActionMessages addContact(Contact contact);
     ResponseActionMessages editContact(Contact contact);
     void removeContact(long contactId);

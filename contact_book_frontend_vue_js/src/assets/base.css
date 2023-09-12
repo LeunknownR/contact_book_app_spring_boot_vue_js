@@ -15,6 +15,9 @@
 	background-color: transparent;
 }
 ::-webkit-scrollbar-thumb {
-	background: #9e9cef;
+	background-color: #9e9cef;
 	border-radius: 5px;
+}
+::-webkit-scrollbar-corner {
+	background-color: transparent;
 }

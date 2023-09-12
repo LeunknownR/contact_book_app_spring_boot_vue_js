@@ -39,7 +39,7 @@ public class ContactRepositoryImpl implements ContactRepository {
             return ResponseActionMessages.CONTACT_NAME_OR_EMAIL_ALREADY_EXISTS;
         final Set<ContactPhone> contactPhonesToCheck = contact.getPhones();
         if (checkExistenceNewNumber(contactPhonesToCheck))
-            return ResponseActionMessages.SOME_NUMBERS_ALREADY_EXISTS;
+            return ResponseActionMessages.SOME_PHONES_ALREADY_EXIST;
         // Agregando nuevo contacto
         entityManager.merge(contact);
         return ResponseActionMessages.SUCCESS;
@@ -86,7 +86,8 @@ public class ContactRepositoryImpl implements ContactRepository {
                 .setParameter("idsOfNumbersToEdit", idsOfNumberToEdit)
                 .getSingleResult();
     }
-    private Contact findContactById(final Long contactId) {
+    @Override
+    public Contact findContactById(final long contactId) {
         return entityManager.find(Contact.class, contactId);
     }
     @Override
@@ -99,7 +100,7 @@ public class ContactRepositoryImpl implements ContactRepository {
             return ResponseActionMessages.CONTACT_NAME_OR_EMAIL_ALREADY_EXISTS;
         final Set<ContactPhone> contactPhonesToCheck = contact.getPhones();
         if (checkExistenceNewNumber(contactPhonesToCheck) || checkExistenceNumbersToEdit(contactPhonesToCheck))
-            return ResponseActionMessages.SOME_NUMBERS_ALREADY_EXISTS;
+            return ResponseActionMessages.SOME_PHONES_ALREADY_EXIST;
         // Aplicando cambios
         entityManager.merge(contact);
         return ResponseActionMessages.SUCCESS;

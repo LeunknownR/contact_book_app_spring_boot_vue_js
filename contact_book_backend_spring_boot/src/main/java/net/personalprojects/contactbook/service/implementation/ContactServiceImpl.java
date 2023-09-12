@@ -7,6 +7,7 @@ import net.personalprojects.contactbook.domain.contact.AddContactForm;
 import net.personalprojects.contactbook.domain.contact.ContactId;
 import net.personalprojects.contactbook.domain.contactphone.ContactPhoneVO;
 import net.personalprojects.contactbook.model.Contact;
+import net.personalprojects.contactbook.model.ContactCategory;
 import net.personalprojects.contactbook.model.ContactPhone;
 import net.personalprojects.contactbook.repository.ContactRepository;
 import net.personalprojects.contactbook.service.ContactService;
@@ -23,13 +24,21 @@ public class ContactServiceImpl implements ContactService {
     public List<Contact> getAllContacts(final ContactFilters filters) {
         return repository.getAllContacts(filters.contactName(), filters.contactPhoneNumber());
     }
+
+    @Override
+    public Contact findContactById(long contactId) {
+        return repository.findContactById(contactId);
+    }
+
     @Override
     public ResponseActionMessages addContact(AddContactForm addContactForm) {
         final Contact contact = new Contact();
         contact.setName(addContactForm.name());
         contact.setEmail(addContactForm.email());
         contact.setIsFavorite(addContactForm.isFavorite());
-        contact.setCategoryId(addContactForm.categoryId());
+        final ContactCategory category = new ContactCategory();
+        category.setId(addContactForm.categoryId());
+        contact.setCategory(category);
         for (String number : addContactForm.phones()) {
             final ContactPhone phone = new ContactPhone();
             phone.setNumber(number);
@@ -44,7 +53,9 @@ public class ContactServiceImpl implements ContactService {
         contact.setName(editContactForm.name());
         contact.setEmail(editContactForm.email());
         contact.setIsFavorite(editContactForm.isFavorite());
-        contact.setCategoryId(editContactForm.categoryId());
+        final ContactCategory category = new ContactCategory();
+        category.setId(editContactForm.categoryId());
+        contact.setCategory(category);
         for (ContactPhoneVO contactPhoneVO : editContactForm.phones()) {
             final ContactPhone phone = new ContactPhone();
             phone.setId(contactPhoneVO.id());
@@ -63,7 +74,6 @@ public class ContactServiceImpl implements ContactService {
     }
     @Override
     public void toggleFavoriteContact(final ContactId contactId) {
-        System.out.println(contactId.value());
         repository.toggleFavoriteContact(contactId.value());
     }
 }
