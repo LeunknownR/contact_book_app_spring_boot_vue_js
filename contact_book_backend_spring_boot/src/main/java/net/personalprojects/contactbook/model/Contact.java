@@ -24,9 +24,10 @@ public class Contact {
     @Column(name = "is_favorite")
     @Setter
     private Boolean isFavorite;
-    @Column(name = "contact_category_id")
+    @ManyToOne
     @Setter
-    private String categoryId;
+    @JoinColumn(name = "contact_category_id")
+    private ContactCategory category;
     @OneToMany(
             mappedBy = "contact",
             cascade = CascadeType.ALL,

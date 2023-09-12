@@ -43,9 +43,8 @@ public class ContactController {
         final ResponseActionMessages message = contactService.editContact(editContactForm);
         if (message == ResponseActionMessages.SUCCESS)
             return ResponseEntity.ok(
-                new ResponseAPI(message.toString(), null)
+                new ResponseAPI(message.toString(), contactService.findContactById(contactDTO.getId()))
             );
-        return ResponseEntity.badRequest().body(
             new ResponseAPI(message.toString(), null)
         );
     }

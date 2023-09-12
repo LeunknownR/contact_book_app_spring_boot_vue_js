@@ -11,6 +11,7 @@ import java.util.List;
 
 public interface ContactService {
     List<Contact> getAllContacts(final ContactFilters filters);
+    Contact findContactById(final long contactId);
     ResponseActionMessages addContact(final AddContactForm addContactForm);
     ResponseActionMessages editContact(final EditContactForm editContactForm);
     void removeContact(final ContactId contactId);

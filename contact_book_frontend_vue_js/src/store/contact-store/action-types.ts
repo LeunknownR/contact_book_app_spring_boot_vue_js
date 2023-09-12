@@ -5,7 +5,7 @@ enum ActionTypes {
 	EditContact = "EDIT_CONTACT",
 	ToggleFavoriteContact = "TOGGLE_FAVORITE_CONTACT",
 	RemoveContact = "REMOVE_CONTACT",
-	ListContactCategories = "LIST_CONTACT_CATEGORIES",
+	FetchContactCategories = "FETCH_CONTACT_CATEGORIES",
 }
 
 export default ActionTypes;

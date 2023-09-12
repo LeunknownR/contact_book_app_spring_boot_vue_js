@@ -5,7 +5,6 @@ import state from "./state";
 import actions from "./actions";
 import getters from "./getters";
 import mutations from "./mutations";
-import ActionTypes from "./action-types";
 
 const contactModule: Module<ContactState, ContactState> = {
 	namespaced: true,
