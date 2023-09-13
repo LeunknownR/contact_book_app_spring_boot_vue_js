@@ -19,8 +19,8 @@
 			<ContactForm
 				:contact-selected="state.contactSelected"
 				:fetch-contacts-action-type="FETCH_CONTACTS_ACTION_TYPE"
+				:form-initializer="formInitializer"
 				@fetch-contacts="fetchContacts"
-				@close-form="formInitializer.close"
 			/>
 		</template>
 	</ContactViewLayout>

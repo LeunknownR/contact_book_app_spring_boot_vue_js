@@ -7,6 +7,9 @@
 * {
 	font-family: "Inria Sans", sans-serif;
 }
+:root {
+	--toastify-color-dark: #333166;
+}
 /* Scrollbar */
 ::-webkit-scrollbar {
 	width: 10px;
@@ -20,4 +23,8 @@
 }
 ::-webkit-scrollbar-corner {
 	background-color: transparent;
+}
+
+.paragraph {
+	@apply m-0 font-thin text-slate-50;
 }

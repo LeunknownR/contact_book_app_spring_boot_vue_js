@@ -4,7 +4,7 @@
 			v-if="isEdition"
 			variant="secondary"
 			icon="mdi:trash"
-			@click="emits('removeContact')"
+			@click="emits('openRemoveContactConfirmModal')"
 		/>
 		<CustomButton
 			variant="primary"
@@ -22,7 +22,7 @@
 	}>();
 	const emits = defineEmits<{
 		(e: "saveForm"): void;
-		(e: "removeContact"): void;
+		(e: "openRemoveContactConfirmModal"): void;
 	}>();
 	const contentMainButton = computed<string>(() =>
 		props.isEdition ? "Editar" : "Agregar"

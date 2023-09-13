@@ -4,8 +4,8 @@ Aplicación de libreta de contactos.
 
 ## Tecnologías
 
--   _Backend_ con **Java Spring Boot** y el ORM **Hibernate**.
--   _Frontend_ con **Vue JS 3** y **TailwindCSS**.
+-   _Backend_ con **Java Spring Boot**, JPA y el ORM **Hibernate**.
+-   _Frontend_ con **Vue JS 3**, **TailwindCSS** y **vue-toastify**.
 -   _Base de datos_ con **MySQL**.
 
 ## Herramientas extras
@@ -35,3 +35,18 @@ Aplicación de libreta de contactos.
 | 6   | Listado de contactos favoritos           | El usuario debe ser capaz de visualizar su lista de contactos favoritos.                                                                                                                                                 | 8          |
 | 7   | Anexo / Desanexo de contacto a favoritos | El usuario debe ser capaz de anexar / desanexar contactos favoritos.                                                                                                                                                     | 8          |
 | 8   | Números telefónicos únicos               | El usuario no debe poder registrar números telefónicos que ya existan.                                                                                                                                                   | 8          |
+
+## Capturas de pantalla de la aplicación (Application screenshoots)
+
+-   Cargando contactos (Loading contacts)
+    <img src="./screenshoots/foto-1.png" alt="Cargando contactos"/>
+-   Formulario para agregar contacto (Add contact form)
+    <img src="./screenshoots/foto-2.png" alt="Formulario para agregar contacto"/>
+-   Formulario para editar contacto (Edit contact form)
+    <img src="./screenshoots/foto-3.png" alt="Formulario para editar contacto"/>
+-   Validación de formulario (Form validation)
+    <img src="./screenshoots/foto-4.png" alt="Validación de formulario"/>
+-   Confirmación para eliminar contacto (Remove contact confirmation)
+    <img src="./screenshoots/foto-5.png" alt="Confirmación para eliminar contacto"/>
+-   Vista de página no encontrada
+    <img src="./screenshoots/foto-6.png" alt="Vista de página no encontrada"/>

@@ -6,6 +6,7 @@ import type { EditContactPayload } from "@/services/utils/types";
 import ActionTypes from "@/store/contact-store/action-types";
 import type { ContactState } from "@/store/contact-store/state";
 import type { Store } from "vuex";
+import { notify } from "@/utils/helpers";
 
 type EditContactAction = () => Promise<ApiResponseMessages>;
 const useEditContact = (
@@ -29,6 +30,7 @@ const useEditContact = (
 	const successEdition = async (contact: Contact): Promise<void> => {
 		await fetchContacts();
 		setContact(contact);
+		notify("¡Contacto editado con éxito!");
 	};
 	const editContact = async (): Promise<ApiResponseMessages> => {
 		const phonesToEdit = completePhoneDataIfExistsInSelectedContact();

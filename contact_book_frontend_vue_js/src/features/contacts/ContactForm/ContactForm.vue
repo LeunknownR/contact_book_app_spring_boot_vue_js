@@ -22,16 +22,22 @@
 			<Footer
 				:is-edition="isEdition"
 				@save-form="saveForm"
-				@remove-contact="removeContact"
+				@open-remove-contact-confirm-modal="
+					openRemoveContactConfirmModal
+				"
 			/>
 		</form>
 	</div>
+	<RemoveContactConfirmModal
+		v-model:is-open="isOpenRemoveContactConfirmModal"
+		@remove-contact="removeContact"
+	/>
 </template>
 <script setup lang="ts">
 	import Header from "./layout/Header.vue";
 	import Fields from "./layout/Fields.vue";
 	import Footer from "./layout/Footer.vue";
-	import { computed, reactive } from "vue";
+	import { computed, reactive, ref } from "vue";
 	import type { Contact } from "@/types/domain";
 	import {
 		INIT_CONTACT_FORM,
@@ -46,6 +52,7 @@
 	import ErrorMessage from "@/components/ErrorMessage.vue";
 	import type ActionTypes from "@/store/contact-store/action-types";
 	import type { FormInitializerComposable } from "./composables/useFormInitializer";
+	import RemoveContactConfirmModal from "@/features/contacts/ContactForm/modals/RemoveContactConfirmModal.vue";
 
 	const props = defineProps<{
 		contactSelected: Contact | null;
@@ -58,6 +65,7 @@
 		formEditStatus: { ...INIT_FORM_FIELD_EDIT_STATUS },
 		errors: { ...INIT_FORM_ERRORS },
 	});
+	const isOpenRemoveContactConfirmModal = ref<boolean>(false);
 	const emits = defineEmits<{
 		(e: "fetchContacts"): Promise<void>;
 	}>();
@@ -74,5 +82,13 @@
 		fetchContacts,
 		props.formInitializer
 	);
-	const removeContact = useRemoveContact(store, state.form);
+	const openRemoveContactConfirmModal = (): void => {
+		isOpenRemoveContactConfirmModal.value = true;
+	};
+	const removeContact = useRemoveContact(
+		store,
+		selectedContact,
+		props.formInitializer.close,
+		fetchContacts
+	);
 </script>

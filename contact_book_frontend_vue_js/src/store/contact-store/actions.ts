@@ -63,6 +63,15 @@ const actions: ActionTree<ContactState, ContactState> = {
 		commit(MutationTypes.ToggleLoading, false);
 		return [message as ApiResponseMessages, contact];
 	},
+	async [ActionTypes.RemoveContact](
+		{ commit },
+		contactId: number
+	): Promise<void> {
+		commit(MutationTypes.SetMessageLoading, "Eliminando contacto...");
+		commit(MutationTypes.ToggleLoading, true);
+		await contactService.removeContact(contactId);
+		commit(MutationTypes.ToggleLoading, false);
+	},
 	async [ActionTypes.ToggleFavoriteContact](
 		{ commit },
 		contactId: number
