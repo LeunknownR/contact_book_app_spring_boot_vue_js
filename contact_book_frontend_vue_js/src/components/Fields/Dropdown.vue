@@ -37,7 +37,6 @@
 	import { computed, ref } from "vue";
 	import DropdownOption from "./DropdownOption.vue";
 	import { Icon } from "@iconify/vue/dist/iconify.js";
-	import ErrorMessage from "../ErrorMessage.vue";
 
 	const props = defineProps<{
 		placeholder: string;

@@ -36,10 +36,7 @@ class ContactService {
 	}
 	async removeContact(contactId: number): Promise<void> {
 		await sleep(300);
-		const response = await api.delete(
-			this.endpoint(`/remove/${contactId}`)
-		);
-		return response.data;
+		await api.delete(this.endpoint(`/remove/${contactId}`));
 	}
 	async getFavoriteContacts(): Promise<ResponseApi<Contact[]>> {
 		await sleep(300);

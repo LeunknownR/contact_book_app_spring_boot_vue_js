@@ -10,9 +10,11 @@
 		"type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false"
 	},
 	"dependencies": {
+		"@vueuse/core": "^10.4.1",
 		"axios": "^1.5.0",
 		"vue": "^3.3.4",
 		"vue-router": "^4.2.4",
+		"vue3-toastify": "^0.1.12",
 		"vuex": "^4.0.2"
 	},
 	"devDependencies": {

@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="px-3 py-2 odd:bg-indigo-400 even:bg-indigo-300 text-slate-50 first:rounded-t-md last:rounded-b-md"
+		class="px-3 py-2 odd:bg-indigo-400 even:bg-indigo-300 text-slate-50 first:rounded-t-md last:rounded-b-md duration-300 hover:bg-indigo-200"
 		@click="onClick"
 	>
 		<slot>{{ text }}</slot>

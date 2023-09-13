@@ -45,7 +45,8 @@ public class ContactController {
             return ResponseEntity.ok(
                 new ResponseAPI(message.toString(), contactService.findContactById(contactDTO.getId()))
             );
-            new ResponseAPI(message.toString(), null)
+        return ResponseEntity.badRequest().body(
+                new ResponseAPI(message.toString(), null)
         );
     }
     @DeleteMapping(value = "/remove/{contactId}")

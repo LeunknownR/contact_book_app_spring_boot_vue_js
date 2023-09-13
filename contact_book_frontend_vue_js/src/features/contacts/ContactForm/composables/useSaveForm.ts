@@ -8,6 +8,8 @@ import useEditContact from "./useEditContact";
 import ApiResponseMessages from "@/services/utils/constants";
 import useValidationForm from "./useValidationForm";
 import type { FormInitializerComposable } from "./useFormInitializer";
+import { notify } from "@/utils/helpers";
+import useAddContact from "./useAddContact";
 
 type SaveFormAction = () => Promise<void>;
 const useSaveForm = (
@@ -17,17 +19,12 @@ const useSaveForm = (
 	fetchContacts: () => Promise<void>,
 	formInitializer: FormInitializerComposable
 ): SaveFormAction => {
-	const addContact = async (): Promise<ApiResponseMessages> => {
-		const message: ApiResponseMessages = await store.dispatch(
-			ActionTypes.AddContact,
-			form
-		);
-		if (message === ApiResponseMessages.Success) {
-			formInitializer.close();
-			fetchContacts();
-		}
-		return message;
-	};
+	const addContact = useAddContact(
+		store,
+		form,
+		fetchContacts,
+		formInitializer.close
+	);
 	const editContact = useEditContact(
 		store,
 		form,
