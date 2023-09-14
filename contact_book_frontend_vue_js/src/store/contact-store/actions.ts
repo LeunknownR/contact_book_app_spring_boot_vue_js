@@ -3,19 +3,21 @@ import type { ContactState } from "./state";
 import MutationTypes from "./mutation-types";
 import contactService from "@/services/contactService";
 import ActionTypes from "./action-types";
-import { sleep } from "@/utils/helpers";
 import contactCategoryService from "@/services/contactCategoryService";
-import type { EditContactPayload } from "@/services/utils/types";
+import type {
+	EditContactPayload,
+	ContactFiltersData,
+} from "@/services/utils/types";
 import type { ContactForm } from "@/features/contacts/ContactForm/utils/types";
 import type { Contact } from "@/types/domain";
 import type ApiResponseMessages from "@/services/utils/constants";
 
 const actions: ActionTree<ContactState, ContactState> = {
-	async [ActionTypes.FetchContacts]({ commit }) {
+	async [ActionTypes.FetchContacts]({ commit }, filters: ContactFiltersData) {
 		commit(MutationTypes.SetMessageLoading, null);
 		commit(MutationTypes.ToggleLoading, true);
 		commit(MutationTypes.SetIsFetchingContacts, true);
-		const { data } = await contactService.getContacts();
+		const { data } = await contactService.getContacts(filters);
 		commit(MutationTypes.ToggleLoading, false);
 		commit(MutationTypes.SetIsFetchingContacts, false);
 		commit(MutationTypes.FillContacts, data);

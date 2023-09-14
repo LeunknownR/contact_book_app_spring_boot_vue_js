@@ -18,6 +18,7 @@
 				:model-value="value.number"
 				@update:model-value="onInput"
 				@blur="onBlur"
+				@keypress="onlyNumbersForKeyPressEvent"
 			/>
 			<ValueField
 				v-else
@@ -43,6 +44,7 @@
 	import type { ContactPhone } from "@/types/domain";
 	import ErrorMessage from "@/components/ErrorMessage.vue";
 	import { computed } from "vue";
+	import { onlyNumbersForKeyPressEvent } from "@/utils/helpers";
 
 	const props = defineProps<{
 		value: ContactPhone;

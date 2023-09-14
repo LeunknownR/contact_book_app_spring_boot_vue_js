@@ -9,10 +9,10 @@
 			<h4 class="font-bold md:text-lg mb-0.5">
 				No has seleccionado ningún contacto
 			</h4>
-			<span class="font-light text-sm md:text-sm"
-				>Agrega un nuevo contacto o selecciona uno para revisar sus
-				datos o editarlo.</span
-			>
+			<span class="font-light text-sm md:text-sm">
+				Agrega un nuevo contacto o selecciona uno para revisar sus datos
+				o editarlo.
+			</span>
 		</div>
 	</section>
 </template>

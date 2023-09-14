@@ -9,7 +9,6 @@
 				type="email"
 				:tabindex="2"
 				placeholder="kcobain@gmail.com"
-				error=""
 				:max-length="30"
 				:model-value="value"
 				@update:model-value="onInput"

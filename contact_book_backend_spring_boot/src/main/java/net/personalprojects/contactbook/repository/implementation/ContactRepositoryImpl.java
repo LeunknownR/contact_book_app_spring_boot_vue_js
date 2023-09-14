@@ -8,6 +8,7 @@ import net.personalprojects.contactbook.exception.InvalidContactException;
 import net.personalprojects.contactbook.model.Contact;
 import net.personalprojects.contactbook.model.ContactPhone;
 import net.personalprojects.contactbook.repository.ContactRepository;
+import net.personalprojects.contactbook.repository.utils.CheckContactValidator;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 public class ContactRepositoryImpl implements ContactRepository {
     @PersistenceContext
     private EntityManager entityManager;
+    private CheckContactValidator checkContactValidator = new CheckContactValidator(entityManager);
     @Override
     public List<Contact> getAllContacts(final String contactName, final String contactPhoneNumber) {
         final String query =
@@ -35,56 +37,11 @@ public class ContactRepositoryImpl implements ContactRepository {
     @Override
     @Transactional
     public ResponseActionMessages addContact(Contact contact) {
-        if (checkExistenceOfContactNameAndEmail(contact))
-            return ResponseActionMessages.CONTACT_NAME_OR_EMAIL_ALREADY_EXISTS;
-        final Set<ContactPhone> contactPhonesToCheck = contact.getPhones();
-        if (checkExistenceNewNumber(contactPhonesToCheck))
-            return ResponseActionMessages.SOME_PHONES_ALREADY_EXIST;
-        // Agregando nuevo contacto
+        final ResponseActionMessages message = checkContactValidator.checkContactForAdding(contact);
+        if (message != null)
+            return message;
         entityManager.merge(contact);
         return ResponseActionMessages.SUCCESS;
-    }
-    private boolean checkExistenceOfContactNameAndEmail(final Contact contactToCheck) {
-        final String query =
-                "SELECT COUNT(c) > 0 " +
-                "FROM Contact c " +
-                "WHERE (c.id IS NULL OR c.id != :id) AND (c.name = :name OR c.email = :email)";
-        return entityManager
-                .createQuery(query, Boolean.class)
-                .setParameter("id", contactToCheck.getId())
-                .setParameter("name", contactToCheck.getName())
-                .setParameter("email", contactToCheck.getEmail())
-                .getSingleResult();
-    }
-    private boolean checkExistenceNewNumber(final Set<ContactPhone> contactPhonesToCheck) {
-        final String query =
-                "SELECT COUNT(cp) > 0 " +
-                "FROM ContactPhone cp " +
-                "WHERE cp.number IN :newNumbers";
-        final Set<String> phoneNumberList = contactPhonesToCheck.stream()
-                .filter(contact -> contact.getId() == null)
-                .map(ContactPhone::getNumber)
-                .collect(Collectors.toSet());
-        return entityManager
-                .createQuery(query, Boolean.class)
-                .setParameter("newNumbers", phoneNumberList)
-                .getSingleResult();
-    }
-    private boolean checkExistenceNumbersToEdit(final Set<ContactPhone> contactPhonesToCheck) {
-        final String query =
-                "SELECT COUNT(cp) > 0 " +
-                "FROM ContactPhone cp " +
-                "WHERE cp.number IN :numbersToEdit AND cp.id NOT IN :idsOfNumbersToEdit";
-        final Set<ContactPhone> contactPhoneList = contactPhonesToCheck.stream()
-                .filter(contact -> contact.getId() != null)
-                .collect(Collectors.toSet());
-        final List<String> numbersToEdit = contactPhoneList.stream().map(ContactPhone::getNumber).toList();
-        final List<Long> idsOfNumberToEdit = contactPhoneList.stream().map(ContactPhone::getId).toList();
-        return entityManager
-                .createQuery(query, Boolean.class)
-                .setParameter("numbersToEdit", numbersToEdit)
-                .setParameter("idsOfNumbersToEdit", idsOfNumberToEdit)
-                .getSingleResult();
     }
     @Override
     public Contact findContactById(final long contactId) {
@@ -93,15 +50,9 @@ public class ContactRepositoryImpl implements ContactRepository {
     @Override
     @Transactional
     public ResponseActionMessages editContact(Contact contact) {
-        // Validaciones
-        if (findContactById(contact.getId()) == null)
-            throw new InvalidContactException("Contact to edit not exists");
-        if (checkExistenceOfContactNameAndEmail(contact))
-            return ResponseActionMessages.CONTACT_NAME_OR_EMAIL_ALREADY_EXISTS;
-        final Set<ContactPhone> contactPhonesToCheck = contact.getPhones();
-        if (checkExistenceNewNumber(contactPhonesToCheck) || checkExistenceNumbersToEdit(contactPhonesToCheck))
-            return ResponseActionMessages.SOME_PHONES_ALREADY_EXIST;
-        // Aplicando cambios
+        final ResponseActionMessages message = checkContactValidator.checkContactForEdit(contact);
+        if (message != null)
+            return message;
         entityManager.merge(contact);
         return ResponseActionMessages.SUCCESS;
     }
@@ -116,9 +67,9 @@ public class ContactRepositoryImpl implements ContactRepository {
     @Override
     public List<Contact> getFavoriteContacts() {
         final String query =
-                "FROM Contact C JOIN FETCH C.phones " +
+                "FROM Contact c JOIN FETCH c.phones " +
                 "WHERE isFavorite = true " +
-                "ORDER BY C.name";
+                "ORDER BY c.name";
         final List<Contact> contactList = entityManager
                 .createQuery(query, Contact.class)
                 .getResultList();

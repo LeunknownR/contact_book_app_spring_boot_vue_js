@@ -1,3 +1,4 @@
+import type { ContactFiltersData } from "@/services/utils/types";
 import ActionTypes from "@/store/contact-store/action-types";
 import type { ContactState } from "@/store/contact-store/state";
 import type { Contact, ContactGroupItem } from "@/types/domain";
@@ -5,11 +6,13 @@ import type { Store } from "vuex";
 
 type ContactsComposable = {
 	store: Store<ContactState>;
+	filters: ContactFiltersData;
 	fillContactGroup: (contactGroup: ContactGroupItem[]) => void;
 	fetchContactsActionType: ActionTypes;
 };
 const useContacts = ({
 	store,
+	filters,
 	fillContactGroup,
 	fetchContactsActionType,
 }: ContactsComposable): (() => Promise<void>) => {
@@ -48,7 +51,7 @@ const useContacts = ({
 		return contactGroup;
 	};
 	const fetchContacts = async (): Promise<void> => {
-		await store.dispatch(fetchContactsActionType);
+		await store.dispatch(fetchContactsActionType, filters);
 		const contacts: Contact[] = store.getters.getContacts;
 		const contactGroup: ContactGroupItem[] =
 			convertToContactGroup(contacts);

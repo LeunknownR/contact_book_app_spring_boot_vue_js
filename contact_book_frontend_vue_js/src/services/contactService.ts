@@ -1,6 +1,7 @@
 import api from "./config/api";
 import type {
 	AddContactPayload,
+	ContactFiltersData,
 	EditContactPayload,
 	ResponseApi,
 } from "./utils/types";
@@ -15,10 +16,16 @@ class ContactService {
 	private endpoint(path?: string) {
 		return `${this.scheme}${path || ""}`;
 	}
-	async getContacts(): Promise<ResponseApi<Contact[]>> {
+	async getContacts(
+		filters: ContactFiltersData
+	): Promise<ResponseApi<Contact[]>> {
 		await sleep(300);
 		const response = await api.get(
-			this.endpoint(`/all?contactName=&contactPhoneNumber=`)
+			this.endpoint(
+				`/all?contactName=${encodeURI(
+					filters.contactName
+				)}&contactPhoneNumber=${encodeURI(filters.phoneNumber)}`
+			)
 		);
 		return response.data;
 	}

@@ -9,15 +9,16 @@
 		:maxlength="maxLength"
 		@input="onInput"
 		@blur="emits('blur')"
+		@keypress="onKeyPress"
 	/>
 </template>
-<script setup lang="ts">
-	import { onMounted, ref } from "vue";
+<script setup lang="ts" generic="V extends string | number">
+	import { ref } from "vue";
 
 	defineProps<{
 		type?: "text" | "email" | "tel";
 		placeholder: string;
-		modelValue: string;
+		modelValue: V;
 		tabindex?: number;
 		maxLength: number;
 	}>();
@@ -25,11 +26,12 @@
 	const emits = defineEmits<{
 		(e: "update:modelValue", value: string): void;
 		(e: "blur"): void;
+		(e: "keypress", event: KeyboardEvent): void;
 	}>();
 	const onInput = (event: Event): void => {
 		emits("update:modelValue", (event.target as HTMLInputElement).value);
 	};
-	onMounted(() => {
-		inputRef.value?.focus();
-	});
+	const onKeyPress = (event: KeyboardEvent): void => {
+		emits("keypress", event);
+	};
 </script>
