@@ -1,8 +1,8 @@
+/// <reference types="vitest" />
 import vue from "@vitejs/plugin-vue";
-import { fileURLToPath, URL } from "node:url";
+import { fileURLToPath } from "url";
 import { defineConfig } from "vite";
 
-// https://vitejs.dev/config/
 export default defineConfig({
 	plugins: [vue()],
 	resolve: {

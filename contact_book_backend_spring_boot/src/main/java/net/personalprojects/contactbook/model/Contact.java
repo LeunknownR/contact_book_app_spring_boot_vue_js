@@ -34,6 +34,7 @@ public class Contact {
             orphanRemoval = true,
             fetch = FetchType.LAZY
     )
+    @OrderBy("id ASC")
     private Set<ContactPhone> phones = new HashSet<>();
     public void addContactPhone(ContactPhone contactPhone) {
         contactPhone.setContact(this);

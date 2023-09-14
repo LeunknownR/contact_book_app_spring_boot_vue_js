@@ -15,3 +15,6 @@ export const notify = (message: string, type?: ToastType) => {
 		transition: "bounce",
 	});
 };
+export const onlyNumbersForKeyPressEvent = (e: KeyboardEvent): void => {
+	if (!/\d/.test(e.key)) e.preventDefault();
+};

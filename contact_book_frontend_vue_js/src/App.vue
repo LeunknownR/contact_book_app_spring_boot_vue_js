@@ -1,7 +1,7 @@
 <template>
 	<main class="flex flex-col justify-between min-h-screen">
 		<Header />
-		<section class="flex flex-col items-center gap-5 mt-6 mb-14 flex-grow">
+		<section class="flex flex-col items-center gap-5 mt-6 mb-8 flex-grow">
 			<Navbar />
 			<RouterView />
 		</section>

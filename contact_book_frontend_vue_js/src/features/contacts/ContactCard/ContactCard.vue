@@ -16,7 +16,7 @@
 			</div>
 		</div>
 		<FavoriteSwitch
-			v-show="!hiddenFavorite"
+			v-if="!hiddenFavorite"
 			:is-favorite="contact.isFavorite"
 			@toggle-favorite="toggleFavorite"
 		/>
@@ -27,8 +27,6 @@
 	import InitialName from "@/components/InitialName.vue";
 	import FavoriteSwitch from "./FavoriteSwitch.vue";
 	import type { Contact } from "@/types/domain";
-	import { useContactStore } from "@/store/contact-store";
-	import ActionTypes from "@/store/contact-store/action-types";
 
 	const props = defineProps<{
 		contact: Contact;
@@ -37,6 +35,7 @@
 	}>();
 	const emits = defineEmits<{
 		(e: "selectContact", contact: Contact): void;
+		(e: "toggleFavorite", contactId: number): Promise<void>;
 	}>();
 	const initialOfName = computed<string>(() => props.contact.name[0]);
 	const firstPhone = computed<string>(() => props.contact.phones[0].number);
@@ -46,8 +45,6 @@
 			contactSelected !== null && contactSelected.id === props.contact.id
 		);
 	});
-	const store = useContactStore();
-	const toggleFavorite = () => {
-		store.dispatch(ActionTypes.ToggleFavoriteContact, props.contact.id);
-	};
+	const toggleFavorite = async () =>
+		await emits("toggleFavorite", props.contact.id);
 </script>

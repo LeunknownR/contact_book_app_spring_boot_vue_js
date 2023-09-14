@@ -1,7 +1,7 @@
 <template>
-	<div class="flex-grow flex justify-center">
+	<div class="flex justify-center flex-grow">
 		<form
-			class="flex flex-col gap-3 bg-indigo-800 max-w-2xl p-7 rounded-lg"
+			class="flex flex-col gap-3 bg-indigo-800 p-7 rounded-lg"
 			@submit.prevent=""
 		>
 			<Header

@@ -31,6 +31,7 @@
 	import ContactForm from "@/features/contacts/ContactForm/ContactForm.vue";
 	import ActionTypes from "@/store/contact-store/action-types";
 	import useContactView from "../composables/useContactView";
+	import ContactFilters from "@/features/contacts/ContactFilters/ContactFilters.vue";
 
 	const FETCH_CONTACTS_ACTION_TYPE: ActionTypes =
 		ActionTypes.FetchFavoriteContacts;

@@ -1,6 +1,7 @@
 <template>
 	<button
 		class="relative flex flex-col items-center text-sm"
+		data-test="favorite-switch"
 		type="button"
 		@click="onClick"
 	>

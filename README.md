@@ -5,7 +5,7 @@ Aplicación de libreta de contactos.
 ## Tecnologías
 
 -   _Backend_ con **Java Spring Boot**, JPA y el ORM **Hibernate**.
--   _Frontend_ con **Vue JS 3**, **TailwindCSS** y **vue-toastify**.
+-   _Frontend_ con **Vue JS 3**, **TailwindCSS**, **vuex**, **typescript**, **vue-toastify** y **vitest** para pruebas unitarias.
 -   _Base de datos_ con **MySQL**.
 
 ## Herramientas extras
@@ -40,13 +40,17 @@ Aplicación de libreta de contactos.
 
 -   Cargando contactos (Loading contacts)
     <img src="./screenshoots/foto-1.png" alt="Cargando contactos"/>
+-   Buscando contactos (Search contacts)
+    <img src="./screenshoots/foto-2.png" alt="Cargando contactos"/>
+-   Sin contactos (No contacts)
+    <img src="./screenshoots/foto-3.png" alt="Cargando contactos"/>
 -   Formulario para agregar contacto (Add contact form)
-    <img src="./screenshoots/foto-2.png" alt="Formulario para agregar contacto"/>
+    <img src="./screenshoots/foto-4.png" alt="Formulario para agregar contacto"/>
 -   Formulario para editar contacto (Edit contact form)
-    <img src="./screenshoots/foto-3.png" alt="Formulario para editar contacto"/>
+    <img src="./screenshoots/foto-5.png" alt="Formulario para editar contacto"/>
 -   Validación de formulario (Form validation)
-    <img src="./screenshoots/foto-4.png" alt="Validación de formulario"/>
+    <img src="./screenshoots/foto-6.png" alt="Validación de formulario"/>
 -   Confirmación para eliminar contacto (Remove contact confirmation)
-    <img src="./screenshoots/foto-5.png" alt="Confirmación para eliminar contacto"/>
+    <img src="./screenshoots/foto-7.png" alt="Confirmación para eliminar contacto"/>
 -   Vista de página no encontrada
-    <img src="./screenshoots/foto-6.png" alt="Vista de página no encontrada"/>
+    <img src="./screenshoots/foto-8.png" alt="Vista de página no encontrada"/>

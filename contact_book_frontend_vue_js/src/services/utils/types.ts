@@ -4,6 +4,10 @@ export type ResponseApi<D = null> = {
 	status: string;
 	data: D;
 };
+export type ContactFiltersData = {
+	contactName: string;
+	phoneNumber: string;
+};
 export type AddContactPayload = {
 	name: string;
 	email: string;
