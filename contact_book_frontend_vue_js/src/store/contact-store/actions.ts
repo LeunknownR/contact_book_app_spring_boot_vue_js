@@ -8,7 +8,7 @@ import type {
 	EditContactPayload,
 	ContactFiltersData,
 } from "@/services/utils/types";
-import type { ContactForm } from "@/features/contacts/ContactForm/utils/types";
+import type { ContactFormType } from "@/features/contacts/ContactForm/utils/types";
 import type { Contact } from "@/types/domain";
 import type ApiResponseMessages from "@/services/utils/constants";
 
@@ -40,7 +40,13 @@ const actions: ActionTree<ContactState, ContactState> = {
 	},
 	async [ActionTypes.AddContact](
 		{ commit },
-		{ name, category, email, isFavorite, phones: phoneNumbers }: ContactForm
+		{
+			name,
+			category,
+			email,
+			isFavorite,
+			phones: phoneNumbers,
+		}: ContactFormType
 	): Promise<string> {
 		commit(MutationTypes.SetMessageLoading, "Agregando contacto...");
 		commit(MutationTypes.ToggleLoading, true);

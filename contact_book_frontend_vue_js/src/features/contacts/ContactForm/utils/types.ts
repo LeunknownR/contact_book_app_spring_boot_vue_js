@@ -6,14 +6,14 @@ export type ContactFormEditStatus = {
 	category: boolean;
 	phones: boolean[];
 };
-export type ContactForm = {
+export type ContactFormType = {
 	name: string;
 	email: string;
 	category: ContactCategory | null;
 	isFavorite: boolean;
 	phones: ContactPhone[];
 };
-export type ContactFormError = {
+export type ContactFormErrors = {
 	name: string | null;
 	email: string | null;
 	category: string | null;
@@ -22,7 +22,7 @@ export type ContactFormError = {
 	persistence: string | null;
 };
 export type ContactStateForm = {
-	form: ContactForm;
+	form: ContactFormType;
 	formEditStatus: ContactFormEditStatus;
-	errors: ContactFormError;
+	errors: ContactFormErrors;
 };

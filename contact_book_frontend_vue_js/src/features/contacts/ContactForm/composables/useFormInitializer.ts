@@ -8,21 +8,23 @@ export type FormInitializerComposable = {
 	close(): void;
 	show: ComputedRef<boolean>;
 };
-const useInitForm = (state: StateContactView): FormInitializerComposable => {
+const useFormInitializer = (
+	state: StateContactView
+): FormInitializerComposable => {
 	const startAddingForm = (): void => {
-		state.contactSelected = null;
+		state.selectedContact = null;
 		state.isAddingContact = true;
 	};
 	const selectContact = (contact: Contact): void => {
-		state.contactSelected = contact;
+		state.selectedContact = contact;
 		state.isAddingContact = false;
 	};
 	const closeForm = (): void => {
-		state.contactSelected = null;
+		state.selectedContact = null;
 		state.isAddingContact = false;
 	};
 	const showForm = computed<boolean>(
-		() => state.contactSelected !== null || state.isAddingContact
+		() => state.selectedContact !== null || state.isAddingContact
 	);
 	return {
 		startAddingForm,
@@ -32,4 +34,4 @@ const useInitForm = (state: StateContactView): FormInitializerComposable => {
 	};
 };
 
-export default useInitForm;
+export default useFormInitializer;

@@ -1,6 +1,6 @@
 import type ApiResponseMessages from "@/services/utils/constants";
 import FormErrorMessages from "../utils/errors";
-import type { ContactForm, ContactFormError } from "../utils/types";
+import type { ContactFormType, ContactFormErrors } from "../utils/types";
 import { RESPONSE_MESSAGE_BY_ERROR_MESSAGE } from "../utils/constants";
 import { watch } from "vue";
 
@@ -10,8 +10,8 @@ type CheckFormAction = {
 };
 const EMAIL_VALIDATION_REGEX: RegExp = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/;
 const useValidationForm = (
-	form: ContactForm,
-	errors: ContactFormError
+	form: ContactFormType,
+	errors: ContactFormErrors
 ): CheckFormAction => {
 	// Watch field changes for clear the persistence error
 	watch(

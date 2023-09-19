@@ -2,7 +2,7 @@
 	<div class="flex justify-center flex-grow">
 		<form
 			class="flex flex-col gap-3 bg-indigo-800 p-7 rounded-lg"
-			@submit.prevent=""
+			@submit.prevent="saveForm"
 		>
 			<Header
 				@close-form="formInitializer.close"
@@ -40,9 +40,9 @@
 	import { computed, reactive, ref } from "vue";
 	import type { Contact } from "@/types/domain";
 	import {
-		INIT_CONTACT_FORM,
-		INIT_FORM_FIELD_EDIT_STATUS,
-		INIT_FORM_ERRORS,
+		buildContactForm,
+		buildContactFormEditStatus,
+		buildContactFormErrors,
 	} from "./utils/constants";
 	import useSetupForm from "./composables/useSetupForm";
 	import { useContactStore } from "@/store/contact-store";
@@ -55,40 +55,43 @@
 	import RemoveContactConfirmModal from "@/features/contacts/ContactForm/modals/RemoveContactConfirmModal.vue";
 
 	const props = defineProps<{
-		contactSelected: Contact | null;
+		selectedContact: Contact | null;
 		fetchContactsActionType: ActionTypes;
 		formInitializer: FormInitializerComposable;
 	}>();
 	const store = useContactStore();
 	const state = reactive<ContactStateForm>({
-		form: { ...INIT_CONTACT_FORM },
-		formEditStatus: { ...INIT_FORM_FIELD_EDIT_STATUS },
-		errors: { ...INIT_FORM_ERRORS },
+		form: buildContactForm(),
+		formEditStatus: buildContactFormEditStatus(),
+		errors: buildContactFormErrors(),
 	});
 	const isOpenRemoveContactConfirmModal = ref<boolean>(false);
 	const emits = defineEmits<{
 		(e: "fetchContacts"): Promise<void>;
 	}>();
-	const selectedContact = computed(() => props.contactSelected);
-	const isEdition = computed<boolean>(() => props.contactSelected !== null);
+	const selectedContact = computed(() => props.selectedContact);
+	const isEdition = computed<boolean>(() => props.selectedContact !== null);
 	useSetupForm(state, selectedContact);
 	const fetchContacts = async (): Promise<void> => {
 		emits("fetchContacts");
 	};
-	const saveForm = useSaveForm(
+	const saveForm = useSaveForm({
 		store,
 		state,
 		selectedContact,
 		fetchContacts,
-		props.formInitializer
-	);
+		formInitializer: props.formInitializer,
+	});
+	const removeContact = useRemoveContact({
+		store,
+		selectedContact,
+		closeForm: props.formInitializer.close,
+		fetchContacts,
+	});
 	const openRemoveContactConfirmModal = (): void => {
 		isOpenRemoveContactConfirmModal.value = true;
 	};
-	const removeContact = useRemoveContact(
-		store,
-		selectedContact,
-		props.formInitializer.close,
-		fetchContacts
-	);
+	defineExpose({
+		state,
+	});
 </script>

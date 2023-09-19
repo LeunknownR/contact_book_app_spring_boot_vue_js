@@ -11,13 +11,13 @@
 				:key="idx"
 				:contactGroupItem="contactGroupItem"
 				:contact-selected="state.contactSelected"
-				hidden-favorite
+				hidden-favorite-switch
 				@selectContact="formInitializer.selectContact"
 			/>
 		</template>
 		<template v-slot:form>
 			<ContactForm
-				:contact-selected="state.contactSelected"
+				:selected-contact="state.contactSelected"
 				:fetch-contacts-action-type="FETCH_CONTACTS_ACTION_TYPE"
 				:form-initializer="formInitializer"
 				@fetch-contacts="fetchContacts"

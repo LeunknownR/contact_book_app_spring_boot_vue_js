@@ -12,7 +12,7 @@ import { computed, onBeforeMount, reactive, type ComputedRef } from "vue";
 
 type StateContactView = {
 	contactGroup: ContactGroupItem[];
-	contactSelected: Contact | null;
+	selectedContact: Contact | null;
 	isAddingContact: boolean;
 	contactFilters: ContactFiltersData;
 };
@@ -29,7 +29,7 @@ const useContactView = (
 	const state = reactive<StateContactView>({
 		contactGroup: [],
 		contactFilters: { ...INIT_CONTACT_FILTERS },
-		contactSelected: null,
+		selectedContact: null,
 		isAddingContact: false,
 	});
 	const fetchContacts = useContacts({

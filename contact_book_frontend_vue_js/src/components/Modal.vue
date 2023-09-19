@@ -2,8 +2,8 @@
 	<Teleport to="#modals">
 		<Transition name="wrapper">
 			<div
-				class="bg-overlay fixed w-full h-full top-0 left-0 grid place-items-center"
 				v-if="isOpen"
+				class="bg-overlay fixed w-full h-full top-0 left-0 grid place-items-center"
 			>
 				<section
 					class="relative flex bg-indigo-800 rounded-md p-6 w-max"

@@ -2,14 +2,16 @@
 	<footer class="flex items-center justify-end gap-3">
 		<CustomButton
 			v-if="isEdition"
+			data-test="remove-contact-btn"
 			variant="secondary"
 			icon="mdi:trash"
 			@click="emits('openRemoveContactConfirmModal')"
 		/>
 		<CustomButton
+			type="submit"
+			data-test="save-form-btn"
 			variant="primary"
 			:content="contentMainButton"
-			@click="emits('saveForm')"
 		/>
 	</footer>
 </template>
@@ -21,7 +23,6 @@
 		isEdition: boolean;
 	}>();
 	const emits = defineEmits<{
-		(e: "saveForm"): void;
 		(e: "openRemoveContactConfirmModal"): void;
 	}>();
 	const contentMainButton = computed<string>(() =>

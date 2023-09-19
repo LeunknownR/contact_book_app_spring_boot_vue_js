@@ -9,9 +9,9 @@
 				v-for="contact of props.contactGroupItem.contacts"
 				:key="contact.id"
 				:contact="contact"
-				:contactSelected="props.contactSelected"
-				:hidden-favorite="hiddenFavorite"
-				@selectContact="emits('selectContact', contact)"
+				:selected-contact="props.contactSelected"
+				:hidden-favorite-switch="hiddenFavoriteSwitch"
+				@select-contact="emits('selectContact', contact)"
 				@toggle-favorite="toggleFavorite"
 			/>
 		</ul>
@@ -28,7 +28,7 @@
 	const props = defineProps<{
 		contactGroupItem: ContactGroupItem;
 		contactSelected: Contact | null;
-		hiddenFavorite: boolean;
+		hiddenFavoriteSwitch: boolean;
 	}>();
 	const emits = defineEmits<{
 		(e: "selectContact", contact: Contact): void;

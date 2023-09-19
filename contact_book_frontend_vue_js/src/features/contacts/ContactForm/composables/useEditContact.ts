@@ -1,6 +1,6 @@
 import ApiResponseMessages from "@/services/utils/constants";
 import type { Contact, ContactPhone } from "@/types/domain";
-import type { ContactForm } from "../utils/types";
+import type { ContactFormType } from "../utils/types";
 import type { ComputedRef } from "vue";
 import type { EditContactPayload } from "@/services/utils/types";
 import ActionTypes from "@/store/contact-store/action-types";
@@ -11,7 +11,7 @@ import { notify } from "@/utils/helpers";
 type EditContactAction = () => Promise<ApiResponseMessages>;
 const useEditContact = (
 	store: Store<ContactState>,
-	form: ContactForm,
+	form: ContactFormType,
 	selectedContact: ComputedRef<Contact | null>,
 	fetchContacts: () => Promise<void>,
 	setContact: (contact: Contact) => void

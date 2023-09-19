@@ -21,7 +21,7 @@
 	const emits = defineEmits<{
 		(e: "closeForm"): void;
 	}>();
-	const title = computed<string>(() => {
-		return props.isEdition ? "Datos de contacto" : "Nuevo contacto";
-	});
+	const title = computed<string>(() =>
+		props.isEdition ? "Datos de contacto" : "Nuevo contacto"
+	);
 </script>
