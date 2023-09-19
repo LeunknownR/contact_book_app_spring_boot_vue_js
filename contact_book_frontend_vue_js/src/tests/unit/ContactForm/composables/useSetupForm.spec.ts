@@ -13,7 +13,7 @@ import type {
 } from "@/features/contacts/ContactForm/utils/types";
 import type { Contact } from "@/types/domain";
 import { VueWrapper, mount } from "@vue/test-utils";
-import { beforeEach, describe, expect, it } from "vitest";
+import { beforeAll, beforeEach, describe, expect, it } from "vitest";
 import { reactive, computed } from "vue";
 import { createMockContact } from "../../utils/mocks";
 
@@ -31,7 +31,7 @@ describe("useSetupForm.ts", () => {
 		});
 	};
 	describe("when there isn't a selected contact", () => {
-		beforeEach(() => {
+		beforeAll(() => {
 			state = reactive({
 				form: buildContactForm(),
 				formEditStatus: buildContactFormEditStatus(),
@@ -56,7 +56,7 @@ describe("useSetupForm.ts", () => {
 	});
 	describe("when there is a selected contact", () => {
 		let selectedContact: Contact;
-		beforeEach(() => {
+		beforeAll(() => {
 			state = reactive({
 				form: buildContactForm(),
 				formEditStatus: buildContactFormEditStatus(),
