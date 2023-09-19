@@ -1,6 +1,6 @@
 import Footer from "@/features/contacts/ContactForm/layout/Footer.vue";
 import { mount, shallowMount } from "@vue/test-utils";
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import type { VueTestComponent } from "../utils/types";
 
 type FooterComponent = VueTestComponent<typeof Footer>;
@@ -43,26 +43,31 @@ describe("Footer.vue (ContactForm)", () => {
 			const button = wrapper.find(REMOVE_CONTACT_BTN_QUERY);
 			expect(button.exists()).toBe(false);
 		});
-		it("should be shown when is edition", () => {
-			const wrapper = shallowMount(Footer, {
-				props: {
-					isEdition: true,
-				},
+		describe("when is edition", () => {
+			let wrapper: VueTestComponent<typeof Footer>;
+			beforeEach(() => {
+				wrapper = shallowMount(Footer, {
+					props: {
+						isEdition: true,
+					},
+				});
 			});
-			const button = wrapper.find(REMOVE_CONTACT_BTN_QUERY);
-			expect(button.exists()).toBe(true);
-		});
-		it("should be emitted 'openRemoveContactConfirmModal' event when button is clicked", () => {
-			const wrapper = shallowMount(Footer, {
-				props: {
-					isEdition: true,
-				},
+			it("should be shown when is edition", () => {
+				const button = wrapper.find(REMOVE_CONTACT_BTN_QUERY);
+				expect(button.exists()).toBe(true);
 			});
-			const button = wrapper.find(REMOVE_CONTACT_BTN_QUERY);
-			button.trigger("click");
-			expect(
-				wrapper.emitted("openRemoveContactConfirmModal")
-			).toBeTruthy();
+			it("should be emitted 'openRemoveContactConfirmModal' event when button is clicked", () => {
+				const wrapper = shallowMount(Footer, {
+					props: {
+						isEdition: true,
+					},
+				});
+				const button = wrapper.find(REMOVE_CONTACT_BTN_QUERY);
+				button.trigger("click");
+				expect(
+					wrapper.emitted("openRemoveContactConfirmModal")
+				).toBeTruthy();
+			});
 		});
 	});
 });

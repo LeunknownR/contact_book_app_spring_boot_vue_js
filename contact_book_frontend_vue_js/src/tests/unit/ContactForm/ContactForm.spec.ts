@@ -1,7 +1,7 @@
 import { buildContactStore } from "@/store";
 import ActionTypes from "@/store/contact-store/action-types";
 import { shallowMount } from "@vue/test-utils";
-import { beforeEach, describe, expect, it } from "vitest";
+import { beforeAll, beforeEach, describe, expect, it } from "vitest";
 import useFormInitializer from "@/features/contacts/ContactForm/composables/useFormInitializer";
 import ErrorMessage from "@/components/ErrorMessage.vue";
 import ContactForm from "@/features/contacts/ContactForm/ContactForm.vue";
@@ -16,11 +16,9 @@ import type {
 	ContactFormErrors,
 	ContactFormType,
 } from "@/features/contacts/ContactForm/utils/types";
-import type { StateContactView } from "@/views/utils/types";
 import {
 	buildActiveFormEditStatus,
 	buildContactForm,
-	buildContactFormEditStatus,
 	buildContactFormErrors,
 } from "@/features/contacts/ContactForm/utils/constants";
 
@@ -73,7 +71,7 @@ describe("ContactForm.vue", () => {
 			});
 		};
 		describe("from a contact to another contact", () => {
-			beforeEach(async () => {
+			beforeAll(async () => {
 				mountWrapper(createMockContact());
 				await wrapper.setProps({
 					...wrapper.props(),
@@ -115,7 +113,7 @@ describe("ContactForm.vue", () => {
 			});
 		});
 		describe("from no contact to another contact", () => {
-			beforeEach(async () => {
+			beforeAll(async () => {
 				mountWrapper(null);
 				await wrapper.setProps({
 					...wrapper.props(),
