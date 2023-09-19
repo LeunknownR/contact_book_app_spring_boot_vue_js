@@ -2,7 +2,8 @@
 	<div class="flex flex-col gap-2">
 		<slot></slot>
 		<div
-			v-show="message"
+			v-if="message"
+			data-test="message"
 			class="flex items-center w-max gap-1 bg-red-400 text-slate-50 px-2.5 py-1 rounded-md"
 			:class="class"
 		>

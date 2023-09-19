@@ -1,9 +1,10 @@
 import type { Contact } from "@/types/domain";
 import { type ComputedRef, watch, onMounted } from "vue";
 import {
-	INIT_CONTACT_FORM,
-	INIT_FORM_ERRORS,
-	INIT_FORM_FIELD_EDIT_STATUS,
+	buildActiveFormEditStatus,
+	buildContactForm,
+	buildContactFormEditStatus,
+	buildContactFormErrors,
 } from "../utils/constants";
 import type { ContactStateForm } from "../utils/types";
 
@@ -12,28 +13,17 @@ const useSetupForm = (
 	selectedContact: ComputedRef<Contact | null>
 ) => {
 	const resetForm = (): void => {
-		Object.assign(form, structuredClone(INIT_CONTACT_FORM));
+		Object.assign(form, buildContactForm());
 	};
 	const resetEditStatus = (contactSelected: Contact): void => {
-		Object.assign(
-			formEditStatus,
-			structuredClone(INIT_FORM_FIELD_EDIT_STATUS)
-		);
+		Object.assign(formEditStatus, buildContactFormEditStatus());
 		formEditStatus.phones = contactSelected.phones.map(() => false);
 	};
 	const activeEditionStatusForm = () => {
-		Object.assign(
-			formEditStatus,
-			structuredClone({
-				name: true,
-				email: true,
-				category: true,
-				phones: [],
-			})
-		);
+		Object.assign(formEditStatus, buildActiveFormEditStatus());
 	};
 	const resetFormErrors = (): void => {
-		Object.assign(errors, structuredClone(INIT_FORM_ERRORS));
+		Object.assign(errors, buildContactFormErrors());
 	};
 	const resetPhoneErrors = (selectedContact: Contact): void => {
 		errors.phones = selectedContact.phones.map(() => null);
@@ -60,7 +50,7 @@ const useSetupForm = (
 		else initEditingForm(selectedContact.value);
 	};
 	onMounted(setupForm);
-	watch(selectedContact, setupForm, { deep: true });
+	watch(selectedContact, setupForm);
 };
 
 export default useSetupForm;

@@ -51,8 +51,8 @@
 	import NameField from "../fields/NameField.vue";
 	import EmailField from "../fields/EmailField.vue";
 	import type {
-		ContactForm,
-		ContactFormError,
+		ContactFormType,
+		ContactFormErrors,
 		ContactFormEditStatus,
 	} from "../utils/types";
 	import CategoryField from "../fields/CategoryField.vue";
@@ -60,8 +60,8 @@
 
 	const props = defineProps<{
 		selectedContact: Contact | null;
-		form: ContactForm;
-		errors: ContactFormError;
+		form: ContactFormType;
+		errors: ContactFormErrors;
 		formEditStatus: ContactFormEditStatus;
 	}>();
 	const isEdit = computed<boolean>(() => props.selectedContact !== null);

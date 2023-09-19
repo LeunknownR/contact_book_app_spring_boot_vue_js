@@ -18,3 +18,6 @@ export const notify = (message: string, type?: ToastType) => {
 export const onlyNumbersForKeyPressEvent = (e: KeyboardEvent): void => {
 	if (!/\d/.test(e.key)) e.preventDefault();
 };
+export const clone = <R>(structure: R): R => {
+	return JSON.parse(JSON.stringify(structure));
+};

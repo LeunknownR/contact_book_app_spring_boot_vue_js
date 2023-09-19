@@ -4,44 +4,35 @@
 		<div class="flex gap-3">
 			<div class="flex gap-3 relative">
 				<TextInput
+					data-test="contact-name-filter"
 					:tabindex="1"
 					placeholder="Busca por nombre..."
 					:max-length="50"
-					:model-value="filters.contactName"
-					@update:modelValue="changeContactName"
+					v-model="contactName"
 				/>
 				<div class="w-1/2">
 					<TextInput
+						data-test="phone-number-filter"
 						type="tel"
 						:tabindex="2"
 						placeholder="Celular..."
 						:max-length="9"
-						:model-value="filters.phoneNumber"
 						@keypress="onlyNumbersForKeyPressEvent"
-						@update:modelValue="changePhoneNumber"
+						v-model="phoneNumber"
 					/>
 				</div>
 			</div>
-			<button
-				type="button"
-				class="bg-indigo-400 rounded grid place-items-center px-2 duration-300 hover:bg-indigo-300"
-				@click="clearFilters"
-			>
-				<Icon
-					class="text-indigo-900 text-2xl"
-					icon="ant-design:clear-outlined"
-				/>
-			</button>
+			<ClearFiltersButton @clear-filters="clearFilters" />
 		</div>
 	</section>
 </template>
 <script setup lang="ts">
 	import TextInput from "@/components/Fields/TextInput.vue";
-	import { Icon } from "@iconify/vue/dist/iconify.js";
 	import type { ContactFiltersData } from "@/services/utils/types";
 	import { INIT_CONTACT_FILTERS } from "./utils/constants";
 	import { onlyNumbersForKeyPressEvent } from "@/utils/helpers";
-	import { ref } from "vue";
+	import { ref, computed } from "vue";
+	import ClearFiltersButton from "./ClearFiltersButton.vue";
 
 	const props = defineProps<{
 		filters: ContactFiltersData;
@@ -60,14 +51,29 @@
 				300
 			);
 		};
-	const changeContactName = (value: string) => {
-		changeFilter("contactName")(value);
-	};
-	const changePhoneNumber = (value: string) => {
-		changeFilter("phoneNumber")(value);
+	const contactName = computed<string>({
+		get(): string {
+			return props.filters.contactName;
+		},
+		set(value: string) {
+			changeFilter("contactName")(value);
+		},
+	});
+	const phoneNumber = computed<string>({
+		get(): string {
+			return props.filters.phoneNumber;
+		},
+		set(value: string) {
+			changeFilter("phoneNumber")(value);
+		},
+	});
+	const filtersAreEmpty = (): boolean => {
+		return !contactName.value && !phoneNumber.value;
 	};
 	const clearFilters = (): void => {
-		Object.assign(props.filters, INIT_CONTACT_FILTERS);
+		const { filters } = props;
+		if (filtersAreEmpty()) return;
+		Object.assign(filters, INIT_CONTACT_FILTERS);
 		emits("fetchContacts");
 	};
 </script>

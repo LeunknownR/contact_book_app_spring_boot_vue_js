@@ -1,6 +1,6 @@
 import ApiResponseMessages from "@/services/utils/constants";
 import ActionTypes from "@/store/contact-store/action-types";
-import type { ContactForm } from "../utils/types";
+import type { ContactFormType } from "../utils/types";
 import type { Store } from "vuex";
 import type { ContactState } from "@/store/contact-store/state";
 import { notify } from "@/utils/helpers";
@@ -8,7 +8,7 @@ import { notify } from "@/utils/helpers";
 type AddContactAction = () => Promise<ApiResponseMessages>;
 const useAddContact = (
 	store: Store<ContactState>,
-	form: ContactForm,
+	form: ContactFormType,
 	fetchContacts: () => Promise<void>,
 	closeForm: () => void
 ): AddContactAction => {

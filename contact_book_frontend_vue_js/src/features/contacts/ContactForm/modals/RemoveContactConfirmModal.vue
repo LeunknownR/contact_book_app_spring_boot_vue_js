@@ -6,11 +6,13 @@
 		@update:is-open="updateIsOpen"
 	>
 		<CustomButton
+			data-test="cancel-btn"
 			variant="secondary"
 			content="Cancelar"
 			@click="updateIsOpen(false)"
 		/>
 		<CustomButton
+			data-test="accept-btn"
 			variant="primary"
 			content="Aceptar"
 			@click="removeContact"

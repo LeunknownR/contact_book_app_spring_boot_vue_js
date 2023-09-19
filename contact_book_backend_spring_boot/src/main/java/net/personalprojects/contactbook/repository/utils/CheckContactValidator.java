@@ -5,14 +5,17 @@ import net.personalprojects.contactbook.common.ResponseActionMessages;
 import net.personalprojects.contactbook.exception.InvalidContactException;
 import net.personalprojects.contactbook.model.Contact;
 import net.personalprojects.contactbook.model.ContactPhone;
-import org.hibernate.annotations.Check;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Component
 public class CheckContactValidator {
-    EntityManager entityManager;
+    private final EntityManager entityManager;
+    @Autowired
     public CheckContactValidator(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
@@ -62,7 +65,7 @@ public class CheckContactValidator {
                 .getSingleResult();
     }
     public ResponseActionMessages checkContactForEdit(final Contact contact) {
-        if (contactExists(contact.getId()))
+        if (!contactExists(contact.getId()))
             throw new InvalidContactException("Contact to edit not exists");
         if (checkExistenceOfContactNameAndEmail(contact))
             return ResponseActionMessages.CONTACT_NAME_OR_EMAIL_ALREADY_EXISTS;

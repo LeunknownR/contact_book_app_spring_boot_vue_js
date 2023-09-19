@@ -1,6 +1,6 @@
 <template>
 	<button
-		type="button"
+		:type="type || 'button'"
 		class="rounded-md py-2.5 duration-300"
 		:class="{
 			// Primary
@@ -33,6 +33,7 @@
 	import { Icon } from "@iconify/vue/dist/iconify.js";
 
 	defineProps<{
+		type?: "button" | "submit";
 		content?: string;
 		icon?: string;
 		variant: "primary" | "secondary";

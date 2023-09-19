@@ -6,20 +6,19 @@ import jakarta.transaction.Transactional;
 import net.personalprojects.contactbook.common.ResponseActionMessages;
 import net.personalprojects.contactbook.exception.InvalidContactException;
 import net.personalprojects.contactbook.model.Contact;
-import net.personalprojects.contactbook.model.ContactPhone;
 import net.personalprojects.contactbook.repository.ContactRepository;
 import net.personalprojects.contactbook.repository.utils.CheckContactValidator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Repository
 public class ContactRepositoryImpl implements ContactRepository {
     @PersistenceContext
     private EntityManager entityManager;
-    private CheckContactValidator checkContactValidator = new CheckContactValidator(entityManager);
+    @Autowired
+    private CheckContactValidator checkContactValidator;
     @Override
     public List<Contact> getAllContacts(final String contactName, final String contactPhoneNumber) {
         final String query =

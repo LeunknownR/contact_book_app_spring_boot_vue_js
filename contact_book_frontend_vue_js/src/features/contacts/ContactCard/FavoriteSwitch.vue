@@ -1,18 +1,19 @@
 <template>
 	<button
 		class="relative flex flex-col items-center text-sm"
-		data-test="favorite-switch"
 		type="button"
 		@click="onClick"
 	>
 		<Icon
+			data-test="non-favorite-icon"
 			class="icon absolute"
-			:class="{ 'opacity-0': isFavorite }"
+			:class="{ 'hidden-icon': isFavorite }"
 			icon="uit:favorite"
 		/>
 		<Icon
+			data-test="favorite-icon"
 			class="icon"
-			:class="{ 'opacity-0': !isFavorite }"
+			:class="{ 'hidden-icon': !isFavorite }"
 			icon="uis:favorite"
 		/>
 	</button>
@@ -20,6 +21,9 @@
 <style scoped lang="postcss">
 	.icon {
 		@apply text-4xl text-indigo-500 duration-200;
+	}
+	.hidden-icon {
+		@apply opacity-0;
 	}
 </style>
 <script setup lang="ts">

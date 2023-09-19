@@ -12,11 +12,15 @@
 			<div class="flex flex-col">
 				<h4 class="text-slate-50 text-lg">{{ contact.name }}</h4>
 				<span class="text-slate-50 text-sm">{{ contact.email }}</span>
-				<span class="text-indigo-200 text-xs">{{ firstPhone }}</span>
+				<span
+					data-test="first-phone"
+					class="text-indigo-200 text-xs"
+					>{{ firstPhone }}</span
+				>
 			</div>
 		</div>
 		<FavoriteSwitch
-			v-if="!hiddenFavorite"
+			v-if="!hiddenFavoriteSwitch"
 			:is-favorite="contact.isFavorite"
 			@toggle-favorite="toggleFavorite"
 		/>
@@ -30,8 +34,8 @@
 
 	const props = defineProps<{
 		contact: Contact;
-		contactSelected: Contact | null;
-		hiddenFavorite: boolean;
+		selectedContact: Contact | null;
+		hiddenFavoriteSwitch: boolean;
 	}>();
 	const emits = defineEmits<{
 		(e: "selectContact", contact: Contact): void;
@@ -40,7 +44,7 @@
 	const initialOfName = computed<string>(() => props.contact.name[0]);
 	const firstPhone = computed<string>(() => props.contact.phones[0].number);
 	const isSelected = computed<boolean>(() => {
-		const { contactSelected } = props;
+		const { selectedContact: contactSelected } = props;
 		return (
 			contactSelected !== null && contactSelected.id === props.contact.id
 		);
