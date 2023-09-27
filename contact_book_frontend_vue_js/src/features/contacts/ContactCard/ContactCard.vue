@@ -44,9 +44,9 @@
 	const initialOfName = computed<string>(() => props.contact.name[0]);
 	const firstPhone = computed<string>(() => props.contact.phones[0].number);
 	const isSelected = computed<boolean>(() => {
-		const { selectedContact: contactSelected } = props;
+		const { selectedContact } = props;
 		return (
-			contactSelected !== null && contactSelected.id === props.contact.id
+			selectedContact !== null && selectedContact.id === props.contact.id
 		);
 	});
 	const toggleFavorite = async () =>

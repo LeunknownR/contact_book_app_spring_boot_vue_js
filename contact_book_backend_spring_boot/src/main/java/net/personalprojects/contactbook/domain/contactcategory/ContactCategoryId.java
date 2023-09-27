@@ -1,7 +1,9 @@
 package net.personalprojects.contactbook.domain.contactcategory;
 
+import lombok.EqualsAndHashCode;
 import net.personalprojects.contactbook.exception.InvalidContactException;
 
+@EqualsAndHashCode
 public class ContactCategoryId {
     private static final String ERROR_MESSAGE = "Invalid contact category id";
     private static final int SIZE = 3;

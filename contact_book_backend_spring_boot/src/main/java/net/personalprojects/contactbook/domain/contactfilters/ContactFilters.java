@@ -1,5 +1,8 @@
 package net.personalprojects.contactbook.domain.contactfilters;
 
+import lombok.EqualsAndHashCode;
+
+@EqualsAndHashCode
 public class ContactFilters {
     private ContactNameFilter _contactName;
     private ContactPhoneNumberFilter _contactPhoneNumber;

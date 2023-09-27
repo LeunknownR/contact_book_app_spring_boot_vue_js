@@ -4,9 +4,18 @@ Aplicación de libreta de contactos.
 
 ## Tecnologías
 
--   _Backend_ con **Java Spring Boot**, JPA y el ORM **Hibernate**.
--   _Frontend_ con **Vue JS 3**, **TailwindCSS**, **vuex**, **typescript**, **vue-toastify** y **vitest** para pruebas unitarias.
--   _Base de datos_ con **MySQL**.
+-   _Backend_:
+    -   **Java Spring Boot**.
+    -   **JPA**, el ORM **Hibernate** y **JPQL** para el gestión de la base de datos.
+    -   **JUnit 5** y **Mockito** para la integración de pruebas unitarias.
+-   _Frontend_:
+    -   **Vue JS 3** con **TypeScript**.
+    -   **TailwindCSS** para estilos.
+    -   **vuex** para gestión de estados globales.
+    -   **vue-toastify** para notificaciones toast.
+    -   **vitest** y **vue-test-utils** para la integración de pruebas unitarias.
+-   _Base de datos_:
+    -   **MySQL**.
 
 ## Herramientas extras
 
@@ -17,7 +26,7 @@ Aplicación de libreta de contactos.
 
 ## Metodología
 
--   El proyecto aplicó **Scrum** para el desarrollo del proyecto.
+-   El proyecto aplicó prácticas de **Scrum** para el desarrollo del proyecto.
 
 ## Diseño UX/UI
 
@@ -54,3 +63,13 @@ Aplicación de libreta de contactos.
     <img src="./screenshoots/foto-7.png" alt="Confirmación para eliminar contacto"/>
 -   Vista de página no encontrada
     <img src="./screenshoots/foto-8.png" alt="Vista de página no encontrada"/>
+
+<style>
+    * {
+        font-family: Cascadia Code;
+    }
+    img {
+        width: 90%;
+        margin: 15px 5%;
+    }
+</style>

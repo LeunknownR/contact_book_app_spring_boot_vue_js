@@ -10,13 +10,17 @@ import net.personalprojects.contactbook.model.Contact;
 import net.personalprojects.contactbook.service.ContactService;
 import net.personalprojects.contactbook.common.ResponseAPI;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/contacts")
+@RequestMapping(
+        value = "/contacts",
+        produces = MediaType.APPLICATION_JSON_VALUE
+)
 public class ContactController {
     @Autowired
     private ContactService contactService;
@@ -25,7 +29,7 @@ public class ContactController {
         final List<Contact> allContacts = contactService.getAllContacts(filters);
         return ResponseEntity.ok(new ResponseAPI("SUCCESS", allContacts));
     }
-    @PostMapping(value = "/add")
+    @PostMapping(value = "/add", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseAPI> addContact(@RequestBody final ContactDTO contactDTO) {
         final AddContactForm addContactForm = new AddContactForm(contactDTO);
         final ResponseActionMessages message = contactService.addContact(addContactForm);
@@ -37,7 +41,7 @@ public class ContactController {
             new ResponseAPI(message.toString(), null)
         );
     }
-    @PutMapping(value = "/edit")
+    @PutMapping(value = "/edit", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseAPI> editContact(@RequestBody final ContactDTO contactDTO) {
         final EditContactForm editContactForm = new EditContactForm(contactDTO);
         final ResponseActionMessages message = contactService.editContact(editContactForm);
@@ -52,16 +56,6 @@ public class ContactController {
     @DeleteMapping(value = "/remove/{contactId}")
     public ResponseEntity<ResponseAPI> removeContact(@PathVariable long contactId) {
         contactService.removeContact(new ContactId(contactId));
-        return ResponseEntity.ok(new ResponseAPI("SUCCESS", null));
-    }
-    @GetMapping(value = "/favorites")
-    public ResponseEntity<ResponseAPI> getFavoriteContacts() {
-        final List<Contact> favoriteContacts = contactService.getFavoriteContacts();
-        return ResponseEntity.ok(new ResponseAPI("SUCCESS", favoriteContacts));
-    }
-    @PatchMapping(value = "/favorites/toggle/{contactId}")
-    public ResponseEntity<ResponseAPI> toggleFavoriteContact(@PathVariable long contactId) {
-        contactService.toggleFavoriteContact(new ContactId(contactId));
         return ResponseEntity.ok(new ResponseAPI("SUCCESS", null));
     }
 }

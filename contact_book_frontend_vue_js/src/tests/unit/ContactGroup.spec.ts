@@ -15,7 +15,7 @@ describe("ContactGroup.vue", () => {
 		const wrapper = shallowMount(ContactGroup, {
 			props: {
 				contactGroupItem,
-				contactSelected: null,
+				selectedContact: null,
 				hiddenFavoriteSwitch: true,
 			},
 			global: {
@@ -33,7 +33,7 @@ describe("ContactGroup.vue", () => {
 		const wrapper = shallowMount(ContactGroup, {
 			props: {
 				contactGroupItem,
-				contactSelected: null,
+				selectedContact: null,
 				hiddenFavoriteSwitch: true,
 			},
 			global: {

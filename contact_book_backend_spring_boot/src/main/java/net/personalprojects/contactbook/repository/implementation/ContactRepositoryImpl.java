@@ -35,7 +35,7 @@ public class ContactRepositoryImpl implements ContactRepository {
     }
     @Override
     @Transactional
-    public ResponseActionMessages addContact(Contact contact) {
+    public ResponseActionMessages addContact(final Contact contact) {
         final ResponseActionMessages message = checkContactValidator.checkContactForAdding(contact);
         if (message != null)
             return message;
@@ -48,7 +48,7 @@ public class ContactRepositoryImpl implements ContactRepository {
     }
     @Override
     @Transactional
-    public ResponseActionMessages editContact(Contact contact) {
+    public ResponseActionMessages editContact(final Contact contact) {
         final ResponseActionMessages message = checkContactValidator.checkContactForEdit(contact);
         if (message != null)
             return message;
@@ -57,10 +57,10 @@ public class ContactRepositoryImpl implements ContactRepository {
     }
     @Override
     @Transactional
-    public void removeContact(long contactId) {
+    public void removeContact(final long contactId) {
         final Contact contactToRemove = findContactById(contactId);
         if (contactToRemove == null)
-            throw new InvalidContactException("Contact to remove not exists");
+            throw new InvalidContactException("Contact not exists");
         entityManager.remove(contactToRemove);
     }
     @Override
@@ -76,8 +76,10 @@ public class ContactRepositoryImpl implements ContactRepository {
     }
     @Transactional
     @Override
-    public void toggleFavoriteContact(Long contactId) {
+    public void toggleFavoriteContact(final Long contactId) {
         final Contact contactFound = entityManager.find(Contact.class, contactId);
+        if (contactFound == null)
+            throw new InvalidContactException("Contact not exists");
         contactFound.setIsFavorite(!contactFound.getIsFavorite());
         entityManager.merge(contactFound);
     }

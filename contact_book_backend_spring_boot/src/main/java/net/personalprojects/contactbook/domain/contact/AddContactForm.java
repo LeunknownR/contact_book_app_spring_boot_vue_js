@@ -1,11 +1,13 @@
 package net.personalprojects.contactbook.domain.contact;
 
+import lombok.EqualsAndHashCode;
 import net.personalprojects.contactbook.domain.contactphone.ContactPhoneNumber;
 import net.personalprojects.contactbook.domain.contactphone.ContactPhoneNumberList;
 import net.personalprojects.contactbook.dto.ContactDTO;
 
 import java.util.Arrays;
 
+@EqualsAndHashCode
 public class AddContactForm extends ContactForm {
     private ContactPhoneNumberList _phones;
     public AddContactForm(ContactDTO contactDTO) {

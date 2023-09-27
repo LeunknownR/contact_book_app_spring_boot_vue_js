@@ -10,14 +10,14 @@
 				v-for="(contactGroupItem, idx) in state.contactGroup"
 				:key="idx"
 				:contactGroupItem="contactGroupItem"
-				:contact-selected="state.contactSelected"
+				:selected-contact="state.selectedContact"
 				hidden-favorite-switch
 				@selectContact="formInitializer.selectContact"
 			/>
 		</template>
 		<template v-slot:form>
 			<ContactForm
-				:selected-contact="state.contactSelected"
+				:selected-contact="state.selectedContact"
 				:fetch-contacts-action-type="FETCH_CONTACTS_ACTION_TYPE"
 				:form-initializer="formInitializer"
 				@fetch-contacts="fetchContacts"
@@ -31,7 +31,6 @@
 	import ContactForm from "@/features/contacts/ContactForm/ContactForm.vue";
 	import ActionTypes from "@/store/contact-store/action-types";
 	import useContactView from "../composables/useContactView";
-	import ContactFilters from "@/features/contacts/ContactFilters/ContactFilters.vue";
 
 	const FETCH_CONTACTS_ACTION_TYPE: ActionTypes =
 		ActionTypes.FetchFavoriteContacts;

@@ -14,7 +14,10 @@ import net.personalprojects.contactbook.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class ContactServiceImpl implements ContactService {
@@ -24,22 +27,26 @@ public class ContactServiceImpl implements ContactService {
     public List<Contact> getAllContacts(final ContactFilters filters) {
         return repository.getAllContacts(filters.contactName(), filters.contactPhoneNumber());
     }
-
     @Override
     public Contact findContactById(long contactId) {
         return repository.findContactById(contactId);
     }
-
     @Override
-    public ResponseActionMessages addContact(AddContactForm addContactForm) {
-        final Contact contact = new Contact();
-        contact.setName(addContactForm.name());
-        contact.setEmail(addContactForm.email());
-        contact.setIsFavorite(addContactForm.isFavorite());
-        final ContactCategory category = new ContactCategory();
-        category.setId(addContactForm.categoryId());
-        contact.setCategory(category);
-        for (String number : addContactForm.phones()) {
+    public ResponseActionMessages addContact(final AddContactForm addContactForm) {
+        final Contact contact = Contact
+                .builder()
+                .name(addContactForm.name())
+                .email(addContactForm.email())
+                .category(
+                    ContactCategory
+                        .builder()
+                        .id(addContactForm.categoryId())
+                        .build()
+                )
+                .isFavorite(addContactForm.isFavorite())
+                .phones(new HashSet<>())
+                .build();
+        for (final String number : addContactForm.phones()) {
             final ContactPhone phone = new ContactPhone();
             phone.setNumber(number);
             contact.addContactPhone(phone);
@@ -47,16 +54,21 @@ public class ContactServiceImpl implements ContactService {
         return repository.addContact(contact);
     }
     @Override
-    public ResponseActionMessages editContact(EditContactForm editContactForm) {
-        final Contact contact = new Contact();
-        contact.setId(editContactForm.id());
-        contact.setName(editContactForm.name());
-        contact.setEmail(editContactForm.email());
-        contact.setIsFavorite(editContactForm.isFavorite());
-        final ContactCategory category = new ContactCategory();
-        category.setId(editContactForm.categoryId());
-        contact.setCategory(category);
-        for (ContactPhoneVO contactPhoneVO : editContactForm.phones()) {
+    public ResponseActionMessages editContact(final EditContactForm editContactForm) {
+        final Contact contact = Contact.builder()
+                .id(editContactForm.id())
+                .name(editContactForm.name())
+                .email(editContactForm.email())
+                .category(
+                    ContactCategory
+                        .builder()
+                        .id(editContactForm.categoryId())
+                        .build()
+                )
+                .isFavorite(editContactForm.isFavorite())
+                .phones(new HashSet<>())
+                .build();
+        for (final ContactPhoneVO contactPhoneVO : editContactForm.phones()) {
             final ContactPhone phone = new ContactPhone();
             phone.setId(contactPhoneVO.id());
             phone.setNumber(contactPhoneVO.number());
@@ -65,7 +77,7 @@ public class ContactServiceImpl implements ContactService {
         return repository.editContact(contact);
     }
     @Override
-    public void removeContact(ContactId contactId) {
+    public void removeContact(final ContactId contactId) {
         repository.removeContact(contactId.value());
     }
     @Override
