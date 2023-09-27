@@ -64,12 +64,4 @@ Aplicación de libreta de contactos.
 -   Vista de página no encontrada
     <img src="./screenshoots/foto-8.png" alt="Vista de página no encontrada"/>
 
-<style>
-    * {
-        font-family: Cascadia Code;
-    }
-    img {
-        width: 90%;
-        margin: 15px 5%;
-    }
-</style>
+<link rel="stylesheet" href="./readme-styles.css"/>
