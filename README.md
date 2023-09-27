@@ -61,15 +61,5 @@ Aplicación de libreta de contactos.
     <img src="./screenshoots/foto-6.png" alt="Validación de formulario"/>
 -   Confirmación para eliminar contacto (Remove contact confirmation)
     <img src="./screenshoots/foto-7.png" alt="Confirmación para eliminar contacto"/>
--   Vista de página no encontrada
+-   Vista de página no encontrada (Page not found view)
     <img src="./screenshoots/foto-8.png" alt="Vista de página no encontrada"/>
-
-<style>
-    * {
-        font-family: Cascadia Code;
-    }
-    img {
-        width: 90%;
-        margin: 15px 5%;
-    }
-</style>
