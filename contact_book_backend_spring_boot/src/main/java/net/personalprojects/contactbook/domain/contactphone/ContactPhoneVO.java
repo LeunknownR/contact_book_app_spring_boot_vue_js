@@ -1,7 +1,9 @@
 package net.personalprojects.contactbook.domain.contactphone;
 
+import lombok.EqualsAndHashCode;
 import net.personalprojects.contactbook.dto.ContactPhoneDTO;
 
+@EqualsAndHashCode
 public class ContactPhoneVO {
     private final ContactPhoneId _id;
     private final ContactPhoneNumber _number;

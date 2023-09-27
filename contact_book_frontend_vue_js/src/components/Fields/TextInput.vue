@@ -1,5 +1,6 @@
 <template>
 	<input
+		:data-test="dataTest"
 		ref="inputRef"
 		:type="type || 'text'"
 		class="bg-indigo-500 border border-indigo-200 text-slate-50 placeholder:text-indigo-200 font-light rounded px-3 py-2 w-full"
@@ -16,6 +17,7 @@
 	import { ref } from "vue";
 
 	defineProps<{
+		dataTest?: string;
 		type?: "text" | "email" | "tel";
 		placeholder: string;
 		modelValue: V;

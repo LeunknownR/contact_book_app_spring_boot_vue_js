@@ -8,9 +8,9 @@ import java.util.List;
 public interface ContactRepository {
     List<Contact> getAllContacts(final String contactName, final String contactPhoneNumber);
     Contact findContactById(final long contactId);
-    ResponseActionMessages addContact(Contact contact);
-    ResponseActionMessages editContact(Contact contact);
-    void removeContact(long contactId);
+    ResponseActionMessages addContact(final Contact contact);
+    ResponseActionMessages editContact(final Contact contact);
+    void removeContact(final long contactId);
     List<Contact> getFavoriteContacts();
-    void toggleFavoriteContact(Long contactId);
+    void toggleFavoriteContact(final Long contactId);
 }

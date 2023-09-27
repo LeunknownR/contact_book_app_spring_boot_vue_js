@@ -1,9 +1,14 @@
 package net.personalprojects.contactbook.dto;
 
-import lombok.Data;
+import lombok.*;
+
 import java.util.Set;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@EqualsAndHashCode
 public class ContactDTO {
     private long id;
     private String name;

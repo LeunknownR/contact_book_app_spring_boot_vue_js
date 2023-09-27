@@ -22,16 +22,16 @@ public class CheckContactValidator {
     public boolean contactExists(final long contactId) {
         return entityManager.find(Contact.class, contactId) != null;
     }
-    private boolean checkExistenceOfContactNameAndEmail(final Contact contactToCheck) {
+    private boolean checkExistenceOfContactNameAndEmail(final Contact contact) {
         final String query =
                 "SELECT COUNT(c) > 0 " +
                         "FROM Contact c " +
                         "WHERE (c.id IS NULL OR c.id != :id) AND (c.name = :name OR c.email = :email)";
         return entityManager
                 .createQuery(query, Boolean.class)
-                .setParameter("id", contactToCheck.getId())
-                .setParameter("name", contactToCheck.getName())
-                .setParameter("email", contactToCheck.getEmail())
+                .setParameter("id", contact.getId())
+                .setParameter("name", contact.getName())
+                .setParameter("email", contact.getEmail())
                 .getSingleResult();
     }
     private boolean checkExistenceNewNumber(final Set<ContactPhone> contactPhonesToCheck) {
@@ -64,21 +64,22 @@ public class CheckContactValidator {
                 .setParameter("idsOfNumbersToEdit", idsOfNumberToEdit)
                 .getSingleResult();
     }
-    public ResponseActionMessages checkContactForEdit(final Contact contact) {
-        if (!contactExists(contact.getId()))
-            throw new InvalidContactException("Contact to edit not exists");
-        if (checkExistenceOfContactNameAndEmail(contact))
-            return ResponseActionMessages.CONTACT_NAME_OR_EMAIL_ALREADY_EXISTS;
-        final Set<ContactPhone> contactPhonesToCheck = contact.getPhones();
-        if (checkExistenceNewNumber(contactPhonesToCheck) || checkExistenceNumbersToEdit(contactPhonesToCheck))
-            return ResponseActionMessages.SOME_PHONES_ALREADY_EXIST;
-        return null;
-    }
+
     public ResponseActionMessages checkContactForAdding(final Contact contact) {
         if (checkExistenceOfContactNameAndEmail(contact))
             return ResponseActionMessages.CONTACT_NAME_OR_EMAIL_ALREADY_EXISTS;
         final Set<ContactPhone> contactPhonesToCheck = contact.getPhones();
         if (checkExistenceNewNumber(contactPhonesToCheck))
+            return ResponseActionMessages.SOME_PHONES_ALREADY_EXIST;
+        return null;
+    }
+    public ResponseActionMessages checkContactForEdit(final Contact contact) {
+        if (!contactExists(contact.getId()))
+            throw new InvalidContactException("Contact not exists");
+        if (checkExistenceOfContactNameAndEmail(contact))
+            return ResponseActionMessages.CONTACT_NAME_OR_EMAIL_ALREADY_EXISTS;
+        final Set<ContactPhone> contactPhonesToCheck = contact.getPhones();
+        if (checkExistenceNewNumber(contactPhonesToCheck) || checkExistenceNumbersToEdit(contactPhonesToCheck))
             return ResponseActionMessages.SOME_PHONES_ALREADY_EXIST;
         return null;
     }

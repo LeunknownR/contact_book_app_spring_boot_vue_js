@@ -15,9 +15,9 @@ const useSetupForm = (
 	const resetForm = (): void => {
 		Object.assign(form, buildContactForm());
 	};
-	const resetEditStatus = (contactSelected: Contact): void => {
+	const resetEditStatus = (selectedContact: Contact): void => {
 		Object.assign(formEditStatus, buildContactFormEditStatus());
-		formEditStatus.phones = contactSelected.phones.map(() => false);
+		formEditStatus.phones = selectedContact.phones.map(() => false);
 	};
 	const activeEditionStatusForm = () => {
 		Object.assign(formEditStatus, buildActiveFormEditStatus());
@@ -28,21 +28,21 @@ const useSetupForm = (
 	const resetPhoneErrors = (selectedContact: Contact): void => {
 		errors.phones = selectedContact.phones.map(() => null);
 	};
-	const preloadDataToForm = (contactSelected: Contact): void => {
-		form.name = contactSelected.name;
-		form.email = contactSelected.email;
-		form.category = { ...contactSelected.category };
-		form.isFavorite = contactSelected.isFavorite;
-		form.phones = contactSelected.phones.map(phone => ({ ...phone }));
+	const preloadDataToForm = (selectedContact: Contact): void => {
+		form.name = selectedContact.name;
+		form.email = selectedContact.email;
+		form.category = { ...selectedContact.category };
+		form.isFavorite = selectedContact.isFavorite;
+		form.phones = selectedContact.phones.map(phone => ({ ...phone }));
 	};
 	const initAddingForm = (): void => {
 		resetForm();
 		activeEditionStatusForm();
 	};
-	const initEditingForm = (contactSelected: Contact): void => {
-		resetEditStatus(contactSelected);
-		preloadDataToForm(contactSelected);
-		resetPhoneErrors(contactSelected);
+	const initEditingForm = (selectedContact: Contact): void => {
+		resetEditStatus(selectedContact);
+		preloadDataToForm(selectedContact);
+		resetPhoneErrors(selectedContact);
 	};
 	const setupForm = (): void => {
 		resetFormErrors();

@@ -8,7 +8,7 @@ type CheckFormAction = {
 	checkErrors: () => boolean;
 	checkPersistenceErrors: (message: ApiResponseMessages) => void;
 };
-const EMAIL_VALIDATION_REGEX: RegExp = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/;
+const EMAIL_VALIDATION_REGEX: RegExp = /^(\w+[/./-]?){1,}@[a-z]+([/.]\w+)+$/;
 const useValidationForm = (
 	form: ContactFormType,
 	errors: ContactFormErrors

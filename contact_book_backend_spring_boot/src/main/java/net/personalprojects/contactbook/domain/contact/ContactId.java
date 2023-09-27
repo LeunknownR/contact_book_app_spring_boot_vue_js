@@ -1,7 +1,9 @@
 package net.personalprojects.contactbook.domain.contact;
 
+import lombok.EqualsAndHashCode;
 import net.personalprojects.contactbook.exception.InvalidContactException;
 
+@EqualsAndHashCode
 public class ContactId {
     private static final String ERROR_MESSAGE = "Invalid contact id";
     private static final int MIN_VALUE = 1;
